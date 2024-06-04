@@ -14,7 +14,7 @@ Category.init(
       autoIncrement: true,
     },
     category_name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRINGexit,
     },
   },
   {
@@ -25,3 +25,5 @@ Category.init(
     modelName: "category",
   }
 );
+
+module.exports = Category;

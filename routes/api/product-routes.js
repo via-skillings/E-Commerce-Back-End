@@ -2,13 +2,26 @@ const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
-router.get('/', (req, res) => {
-  // find all products
+router.get('/', async (req, res) => {
+  try {
+    // Find all categories
+    const products = await Product.findAll({ include: [{ model: Tag, through:ProductTag }] });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ message: 'not found!' });
+  }
 });
 
 // get one product
-router.get('/:id', (req, res) => {
-  // find a single product by its `id`
+router.get('/:id', async (req, res) => {
+  // find item by 'id'
+  try {
+    const products = await Product.findByPk(req.params.userId,
+      { include: [{ model: Tag, through:ProductTag }] });
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({ message: 'not found!' });
+  }
 });
 
 // create new product
